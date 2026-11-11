@@ -150,11 +150,12 @@ jobs:
         if: ${{ inputs.kernel_source == 'custom_build' }}
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 \
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true \
             build-essential flex bison libssl-dev libelf-dev bc \
             ccache clang llvm lld
           mkdir -p /home/runner/.ccache
@@ -278,11 +279,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 \
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true \
             build-essential autoconf automake libtool pkg-config \
             git wget unzip dpkg-dev libyaml-dev linux-libc-dev
           echo "✓ Build tools installed"
@@ -355,11 +357,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 \
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true \
             build-essential ninja-build git pkg-config python3-pip \
             libglib2.0-dev libprotobuf-c-dev libqmi-glib-dev libmbim-glib-dev \
             linux-libc-dev protobuf-compiler protobuf-c-compiler
@@ -430,11 +433,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 \
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true \
             build-essential ninja-build pkg-config git wget dpkg-dev \
             python3-pip libglib2.0-dev libgudev-1.0-dev \
             libpolkit-gobject-1-dev libsystemd-dev libdbus-1-dev \
@@ -519,11 +523,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 dpkg-dev
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true dpkg-dev
           echo "✓ Build tools installed"
 
       - name: "Package sheng-sensors"
@@ -590,11 +595,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 build-essential dpkg-dev git
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true build-essential dpkg-dev git
           echo "✓ Build tools installed"
 
       - name: "Clone Source"
@@ -736,11 +742,12 @@ jobs:
       - name: "Install Build Tools"
         run: |
           sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any -o Acquire::ForceIPv4=true && break
             echo "apt update failed (try $i)"; sleep 15
           done
-          sudo apt-get install -y -o Acquire::Retries=5 debootstrap git curl
+          sudo apt-get install -y -o Acquire::Retries=5 -o Acquire::ForceIPv4=true debootstrap git curl
           echo "✓ Build tools installed"
 
       # ----------------------------------------------------------------
@@ -1005,8 +1012,8 @@ jobs:
 
       - name: "Install Base Packages"
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get update
-          sudo chroot "$ROOTFS_MOUNT" apt-get install -y \
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y \
             systemd systemd-sysv \
             sudo vim wget curl \
             network-manager openssh-server \
@@ -1035,8 +1042,8 @@ jobs:
       - name: "Install Plymouth"
         if: ${{ steps.partition.outputs.quiet_boot_enabled == 'true' }}
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get update
-          sudo chroot "$ROOTFS_MOUNT" apt-get install -y \
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y \
             plymouth plymouth-themes
           echo "✓ Plymouth installed"
 
@@ -1048,8 +1055,8 @@ jobs:
           sudo ls -lah "$ROOTFS_MOUNT/tmp/"*.deb
 
           sudo chroot "$ROOTFS_MOUNT" bash -c "
-            apt-get update
-            apt-get install -y /tmp/*.deb 2>&1 || apt-get install -f -y
+            apt-get -o Acquire::ForceIPv4=true update
+            apt-get -o Acquire::ForceIPv4=true install -y /tmp/*.deb 2>&1 || apt-get install -f -y
             rm /tmp/*.deb
           "
           echo "✓ All .deb packages installed"
@@ -1109,8 +1116,8 @@ jobs:
             echo "✓ System locale stays C.UTF-8"
           else
             # locales package provides locale-gen and /etc/locale.gen
-            sudo chroot "$ROOTFS_MOUNT" apt-get update
-            sudo chroot "$ROOTFS_MOUNT" apt-get install -y locales
+            sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
+            sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y locales
             # Generate selected language + en_US.UTF-8
             sudo sed -i 's/^# *\(en_US\.UTF-8\)/\1/' "$ROOTFS_MOUNT/etc/locale.gen"
             sudo sed -i "s/^# *\\(${LANG_CHOICE//./\\.}\\)/\\1/" "$ROOTFS_MOUNT/etc/locale.gen"
@@ -1149,8 +1156,8 @@ jobs:
       - name: "Install GNOME"
         if: ${{ inputs.desktop == 'GNOME' }}
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get update
-          sudo chroot "$ROOTFS_MOUNT" apt-get install -y \
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y \
             gnome-shell gnome-session gnome-terminal \
             gdm3 firefox-esr \
             gnome-control-center
@@ -1159,13 +1166,13 @@ jobs:
       - name: "Install KDE Plasma"
         if: ${{ inputs.desktop == 'KDE Plasma' }}
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get update
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
           if [[ "${{ inputs.plasma_mobile }}" == "true" ]]; then
             PLASMA_PACKAGE="plasma-mobile"
           else
             PLASMA_PACKAGE="plasma-desktop"
           fi
-          sudo chroot "$ROOTFS_MOUNT" apt-get install -y \
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y \
             "$PLASMA_PACKAGE" plasma-workspace plasma-nm \
             sddm konsole firefox-esr \
             dolphin kate \
@@ -1175,8 +1182,8 @@ jobs:
       - name: "Install KDE Plasma Plymouth Settings"
         if: ${{ inputs.desktop == 'KDE Plasma' && steps.partition.outputs.quiet_boot_enabled == 'true' }}
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get update
-          sudo chroot "$ROOTFS_MOUNT" apt-get install -y \
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true update
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true install -y \
             kde-config-plymouth plymouth-theme-breeze
           echo "✓ KDE Plasma Plymouth settings installed"
 
@@ -1258,7 +1265,7 @@ jobs:
 
       - name: "Clean APT Cache"
         run: |
-          sudo chroot "$ROOTFS_MOUNT" apt-get clean
+          sudo chroot "$ROOTFS_MOUNT" apt-get -o Acquire::ForceIPv4=true clean
           sudo rm -f "$ROOTFS_MOUNT/etc/resolv.conf"
           echo "✓ APT cache cleaned"
 
