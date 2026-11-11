@@ -149,11 +149,10 @@ jobs:
       - name: "Install Build Tools"
         if: ${{ inputs.kernel_source == 'custom_build' }}
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 \
             build-essential flex bison libssl-dev libelf-dev bc \
@@ -278,11 +277,10 @@ jobs:
 
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 \
             build-essential autoconf automake libtool pkg-config \
@@ -356,11 +354,10 @@ jobs:
 
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 \
             build-essential ninja-build git pkg-config python3-pip \
@@ -432,11 +429,10 @@ jobs:
     steps:
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 \
             build-essential ninja-build pkg-config git wget dpkg-dev \
@@ -522,11 +518,10 @@ jobs:
 
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 dpkg-dev
           echo "✓ Build tools installed"
@@ -594,11 +589,10 @@ jobs:
 
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 build-essential dpkg-dev git
           echo "✓ Build tools installed"
@@ -741,11 +735,10 @@ jobs:
 
       - name: "Install Build Tools"
         run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
           for i in 1 2 3 4 5; do
-            sudo apt-get update -o Acquire::Retries=5 && break
-            echo "apt update failed (try $i), switching DNS"
-            sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf' || true
-            sleep 15
+            sudo apt-get update -o Acquire::Retries=5 -o APT::Update::Error-Mode=any && break
+            echo "apt update failed (try $i)"; sleep 15
           done
           sudo apt-get install -y -o Acquire::Retries=5 debootstrap git curl
           echo "✓ Build tools installed"
