@@ -1,0 +1,29 @@
+name: DNS Test
+on:
+  workflow_dispatch:
+
+jobs:
+  dns:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Show resolv.conf
+        run: |
+          cat /etc/resolv.conf || true
+      - name: Default resolver
+        run: |
+          getent hosts ports.ubuntu.com && echo OK_DEFAULT || echo FAIL_DEFAULT
+      - name: Google DNS
+        run: |
+          sudo sh -c 'printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf'
+          getent hosts ports.ubuntu.com && echo OK_GOOGLE || echo FAIL_GOOGLE
+      - name: Azure DNS
+        run: |
+          sudo sh -c 'printf "nameserver 168.63.129.16\n" > /etc/resolv.conf'
+          getent hosts ports.ubuntu.com && echo OK_AZURE || echo FAIL_AZURE
+      - name: HTTP reachability
+        run: |
+          curl -sS -o /dev/null -w "code=%{http_code}\n" --max-time 20 http://ports.ubuntu.com/ubuntu-ports/dists/noble/InRelease || echo CURL_FAIL
+      - name: Mirror reachability
+        run: |
+          curl -sS -o /dev/null -w "tuna=%{http_code}\n" --max-time 20 https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/dists/noble/InRelease || echo TUNA_FAIL
+          curl -sS -o /dev/null -w "aliyun=%{http_code}\n" --max-time 20 https://mirrors.aliyun.com/ubuntu-ports/dists/noble/InRelease || echo ALIYUN_FAIL
